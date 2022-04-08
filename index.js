@@ -220,11 +220,17 @@ server.on(
     "reset",
     /**@type {(payload: {data: {id: string}, reply: (ev: string, d: Object, callback: () => void) => void}, sender: {address: string, port: number}) => void} */
     (payload, sender) => {
+        if (!host) {
+            sockets[payload.data.id] = sender;
+            host = sender;
+            return;
+        }
+
         var s,
             l = Object.keys(sockets);
 
         for (s of l) {
-            if (host.address != s.address) server.Send("reset", payload.data, sockets[s]);
+            server.Send("reset", payload.data, sockets[s]);
         }
 
         sockets = {};
