@@ -224,7 +224,7 @@ server.on(
             l = Object.keys(sockets);
 
         for (s of l) {
-            server.Send("reset", {}, sockets[s]);
+            if (host.address != s.address) server.Send("reset", payload.data, sockets[s]);
         }
 
         sockets = {};
