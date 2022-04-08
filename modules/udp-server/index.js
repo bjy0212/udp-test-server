@@ -25,6 +25,8 @@ class Server extends EventEmitter {
                 th.Send(ev, d, sender, callback);
             };
 
+            // console.log(`${data.event}: ${JSON.stringify(data)}`);
+
             this.emit(data.event, data, sender);
         });
     }

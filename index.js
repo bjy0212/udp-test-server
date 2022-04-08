@@ -10,101 +10,102 @@ const { Server } = require("udp-server"),
  * 이동은 실시간 처리
  */
 
-/**
- * @typedef Vector3
- * @property {number} x
- * @property {number} y
- * @property {number} z
- */
+//#region 삭제
+// /**
+//  * @typedef Vector3
+//  * @property {number} x
+//  * @property {number} y
+//  * @property {number} z
+//  */
 
-const Vector = {
-    /**@type {(x: number, y: number, z: number) => Vector3} */
-    New(x, y, z) {
-        return new Object({ x, y, z });
-    },
-    /**@type {(v1: Vector3, v2: Vector3) => Vector3} */
-    Sum(v1, v2) {
-        return new Object({
-            x: v1.x + v2.x,
-            y: v1.y + v2.y,
-            z: v1.z + v2.z,
-        });
-    },
-    /**@type {(v1: Vector3, v2: Vector3) => Vector3} */
-    Def(v1, v2) {
-        return new Object({
-            x: v1.x - v2.x,
-            y: v1.y - v2.y,
-            z: v1.z - v2.z,
-        });
-    },
-    /**@type {(v: Vector3) => Vector3} */
-    Length(v) {
-        return Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
-    },
-    /**@type {(v: Vector3) => Vector3} */
-    Normalized(v, n) {
-        if (!n) n = 1;
+// const Vector = {
+//     /**@type {(x: number, y: number, z: number) => Vector3} */
+//     New(x, y, z) {
+//         return new Object({ x, y, z });
+//     },
+//     /**@type {(v1: Vector3, v2: Vector3) => Vector3} */
+//     Sum(v1, v2) {
+//         return new Object({
+//             x: v1.x + v2.x,
+//             y: v1.y + v2.y,
+//             z: v1.z + v2.z,
+//         });
+//     },
+//     /**@type {(v1: Vector3, v2: Vector3) => Vector3} */
+//     Def(v1, v2) {
+//         return new Object({
+//             x: v1.x - v2.x,
+//             y: v1.y - v2.y,
+//             z: v1.z - v2.z,
+//         });
+//     },
+//     /**@type {(v: Vector3) => Vector3} */
+//     Length(v) {
+//         return Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+//     },
+//     /**@type {(v: Vector3) => Vector3} */
+//     Normalized(v, n) {
+//         if (!n) n = 1;
 
-        var l = Length(v);
+//         var l = Length(v);
 
-        return new Object({
-            x: (v.x / l) * n,
-            y: (v.y / l) * n,
-            z: (v.z / l) * n,
-        });
-    },
-    zero: new Object({ x: 0, y: 0, z: 0 }),
-    top: new Object({ x: 0, y: 1, z: 0 }),
-    bottom: new Object({ x: 0, y: -1, z: 0 }),
-    left: new Object({ x: -1, y: 0, z: 0 }),
-    right: new Object({ x: 1, y: 0, z: 0 }),
-    forward: new Object({ x: 0, y: 0, z: 1 }),
-    back: new Object({ x: 0, y: 0, z: -1 }),
-};
+//         return new Object({
+//             x: (v.x / l) * n,
+//             y: (v.y / l) * n,
+//             z: (v.z / l) * n,
+//         });
+//     },
+//     zero: new Object({ x: 0, y: 0, z: 0 }),
+//     top: new Object({ x: 0, y: 1, z: 0 }),
+//     bottom: new Object({ x: 0, y: -1, z: 0 }),
+//     left: new Object({ x: -1, y: 0, z: 0 }),
+//     right: new Object({ x: 1, y: 0, z: 0 }),
+//     forward: new Object({ x: 0, y: 0, z: 1 }),
+//     back: new Object({ x: 0, y: 0, z: -1 }),
+// };
 
-class Map {
-    /**@type {Object} 맵을 구성하는 오브젝트들의 정보를 담는 객체 */
-    objects;
-    constructor(objects) {
-        this.objects = objects;
-    }
+// class Map {
+//     /**@type {Object} 맵을 구성하는 오브젝트들의 정보를 담는 객체 */
+//     objects;
+//     constructor(objects) {
+//         this.objects = objects;
+//     }
 
-    /**@type {() => void} 맵 최초 initialization */
-    Start() {}
+//     /**@type {() => void} 맵 최초 initialization */
+//     Start() {}
 
-    /**틱마다 실행 되는 함수
-     * @param {number} dt delta time
-     * @returns {void}
-     */
-    Update(dt) {}
-}
+//     /**틱마다 실행 되는 함수
+//      * @param {number} dt delta time
+//      * @returns {void}
+//      */
+//     Update(dt) {}
+// }
 
-/**@type {(x: number, y: number, z: number) => object} */
-function Block(x, y, z) {
-    this.position = Vector.New(x, y, z);
-}
+// /**@type {(x: number, y: number, z: number) => object} */
+// function Block(x, y, z) {
+//     this.position = Vector.New(x, y, z);
+// }
 
-class QuizMap extends Map {
-    // 커스텀 문제 데이터
-    quiz;
-    objects;
-    constructor() {
-        super({
-            blocks: [new Block(4, 0, 1), new Block(2, 0, 1), new Block(0, 0, 1), new Block(-2, 0, 1), new Block(-4, 0, 1)],
-            players: {},
-        });
-    }
+// class QuizMap extends Map {
+//     // 커스텀 문제 데이터
+//     quiz;
+//     objects;
+//     constructor() {
+//         super({
+//             blocks: [new Block(4, 0, 1), new Block(2, 0, 1), new Block(0, 0, 1), new Block(-2, 0, 1), new Block(-4, 0, 1)],
+//             players: {},
+//         });
+//     }
 
-    Join(player) {
-        this.objects.players[player.uuid] = player;
-        console.log(`${player.uuid}님이 접속 하셨습니다.`);
-    }
-}
+//     Join(player) {
+//         this.objects.players[player.uuid] = player;
+//         console.log(`${player.uuid}님이 접속 하셨습니다.`);
+//     }
+// }
 
-/**@type {QuizMap} */
-let map = new QuizMap();
-let users = {};
+// /**@type {QuizMap} */
+// let map = new QuizMap();
+// let users = {};
 
 /**
  * @typedef Player
@@ -115,16 +116,17 @@ let users = {};
  * @property {Boolean} out 퇴장 여부
  */
 
-/**@type {(uuid: string, info: {address: string, port: number}) => Player} */
-function Player(uuid, info) {
-    return new Object({
-        uuid: uuid,
-        info: info,
-        position: Vector.zero,
-        rotation: Vector.forward,
-        out: false,
-    });
-}
+// /**@type {(uuid: string, info: {address: string, port: number}) => Player} */
+// function Player(uuid, info) {
+//     return new Object({
+//         uuid: uuid,
+//         info: info,
+//         position: Vector.zero,
+//         rotation: Vector.forward,
+//         out: false,
+//     });
+// }
+//#endregion
 
 server.on("listening", (address, port) => {
     console.log(`* server is listening at ${address}:${port}`);
@@ -208,21 +210,12 @@ server.on(
         payload.reply("sync", { keys: Object.keys(map.objects), objects: map.objects });
     }
 );
-
-server.on(
-    "reset",
-    /**@param {{data: {id: string, rotation: Vector3, vector: Vector3}, reply: function}} payload */
-    (payload, sender) => {
-        map.objects.users;
-    }
-);
 //#endregion
 
 let sockets = {};
-let host = "";
+let host = undefined;
 
 //#region new
-// 관리자만 사용 할 수 있는 것
 server.on(
     "reset",
     /**@type {(payload: {data: {id: string}, reply: (ev: string, d: Object, callback: () => void) => void}, sender: {address: string, port: number}) => void} */
@@ -231,7 +224,7 @@ server.on(
             l = Object.keys(sockets);
 
         for (s of l) {
-            server.Send("reset", {}, s);
+            server.Send("reset", {}, sockets[s]);
         }
 
         sockets = {};
@@ -247,12 +240,14 @@ server.on(
     (payload, sender) => {
         if (host != sender) return;
 
+        console.log(payload);
+
         var l = Object.keys(sockets),
             s;
 
         // broadcast from host to client
         for (s of l) {
-            server.Send("host", payload.data, s);
+            server.Send("host", payload.data, sockets[s]);
         }
     }
 );
@@ -262,6 +257,8 @@ server.on(
     /**@type {(payload: {data: {id: string, pos: Vecor3, rot: Vector3, animation: number}, reply: (ev: string, d: Object, callback: () => void) => void}, sender: {address: string, port: number}) => void} */
     (payload, sender) => {
         if (!sockets[payload.data.id] || sockets[payload.data.id] != sender) sockets[payload.data.id] = sender;
+
+        if (!host) return;
 
         // send data to host
         server.Send("client", payload.data, host);
