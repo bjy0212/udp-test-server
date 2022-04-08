@@ -231,6 +231,8 @@ server.on(
         sockets[payload.data.id] = sender;
 
         host = sender;
+
+        // console.log(host);
     }
 );
 
@@ -238,9 +240,8 @@ server.on(
     "host",
     /**@type {(payload: {data: {id: string, data: object}, reply: (ev: string, d: Object, callback: () => void) => void}, sender: {address: string, port: number}) => void} */
     (payload, sender) => {
-        if (host != sender) return;
-
-        console.log(payload);
+        if (!host) return;
+        if (host.address != sender.address) return;
 
         var l = Object.keys(sockets),
             s;

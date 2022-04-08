@@ -19,7 +19,7 @@ class Server extends EventEmitter {
             var th = this;
             var data = JSON.parse(message);
 
-            data.sender = sender;
+            data.sender = { address: sender.address, port: sender.port };
 
             data.reply = function (ev, d, callback) {
                 th.Send(ev, d, sender, callback);
@@ -27,7 +27,7 @@ class Server extends EventEmitter {
 
             // console.log(`${data.event}: ${JSON.stringify(data)}`);
 
-            this.emit(data.event, data, sender);
+            this.emit(data.event, data, data.sender);
         });
     }
 
