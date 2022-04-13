@@ -1,4 +1,5 @@
 const { Server } = require("udp-server"),
+    { Worker } = require("worker_threads"),
     server = new Server();
 
 /**
@@ -241,6 +242,18 @@ server.on(
         // console.log(host);
     }
 );
+
+// 클라이언트 응답
+server.on(
+    "ac",
+    (payload, sender) => {
+        if (!sockets[payload.data.id] || sockets[payload.data.id] != sender) sockets[payload.data.id] = sender;
+
+        if (!host) return;
+
+        server.Send("ac", payload.data, host);
+    }
+)
 
 server.on(
     "host",
