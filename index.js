@@ -249,9 +249,13 @@ server.on(
     (payload, sender) => {
         if (!sockets[payload.data.id] || sockets[payload.data.id] != sender) sockets[payload.data.id] = sender;
 
-        if (!host) return;
+        Object.keys(sockets).forEach(e => {
+            server.Send("ac", payload.data, e);
+        })
 
-        server.Send("ac", payload.data, host);
+        // if (!host) return;
+
+        // server.Send("ac", payload.data, host);
     }
 )
 
